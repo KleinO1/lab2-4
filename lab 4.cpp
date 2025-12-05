@@ -27,20 +27,21 @@ void showHotDays(float** p, int d, int h) {
     cout << "Общая средняя температура: " << overall << endl;
     cout << "Теплые дни:" << endl;
 
-    bool hasHotDays = false;
+    int countHot = 0;
 
     for (int i = 0; i < d; ++i) {
         float avgDay = dayAverage(*(p + i), h);
         if (avgDay > overall) {
             cout << "День " << (i + 1) << " (среднее = " << avgDay << ")" << endl;
-            hasHotDays = true;
+            countHot++;
         }
     }
 
-    if (!hasHotDays) {
+    if (countHot == 0) {
         cout << "Нет дней с температурой выше общей средней." << endl;
     }
 }
+
 
 int main() {
     int d, h;
@@ -51,8 +52,8 @@ int main() {
     cout << "Введите количество измерений в дне: ";
     cin >> h;
 
-    if (d <= 0 || h <= 0) {
-        cout << "Некорректный размер." << endl;
+    if (d < 1 || d > 30 || h < 1 || h > 24) {
+        cout << "Ошибка: максимум 30 дней и максимум 24 измерения." << endl;
         return 0;
     }
 
